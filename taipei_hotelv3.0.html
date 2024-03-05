@@ -9,7 +9,17 @@
 </head>
 
 <body>
+    <input type="text" name="" id="page" value="1" hidden>
+    <!-- <li class="page-item"><a class="pagebutton page-link">x</a></li> -->
+
+
     <div class="container">
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul id="PageNumberButton" class="pagination">
+                </ul>
+            </nav>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-8 pt-5">
                 <ul id="hotel" class="list-group list-group-flush">
@@ -18,13 +28,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <nav aria-label="Page navigation example">
-            <ul id="PageNumberButton" class="pagination">
-            </ul>
-        </nav>
-    </div>
-
 
 
     <script src="./js/jquery-3.7.1.min.js"></script>
@@ -35,7 +38,7 @@
                 type: "GET",
                 url: "https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php",
                 dataType: "json",
-                success: showdata,
+                success: getdata,//成功呼叫函數
                 error: function () {
                     alert("error-https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php");
                 }
@@ -43,46 +46,89 @@
         });
 
 
-        var PageNumber = 1;
-        var PageNumberButton = "";
-        var html = "";
-        var newdata = [];
-        var i=1;
+        var PageNumber = 1;//頁碼按鈕排序用
+        var PageNumberButton = "";//存放頁碼按鈕的html
+        var newdata = [];//排列資料用 newdata[page]<-後續使用方式
+        
 
-        function showdata(data) {
-            
-            PageNumberButton += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
+        function getdata(data) {
+
+            PageNumberButton += '<li class="page-item"><a class="pagebutton page-link" href="#">Previous</a></li>';//上頁按鈕
             data.forEach(function (item, key) {
-                if (key % 10 == 0) {
+                if (key % 5 == 0) {
                     newdata.push([]);
-                    console.log(key);
-                    PageNumberButton += '<li class="page-item"><a class="page-link" onclick=getData("'+PageNumber+'")>'+PageNumber+'</a></li>\n';
+                   
+                    PageNumberButton += '<li class="page-item"><a class="pagebutton page-link">' + PageNumber + '</a></li>\n';//逐筆新增數字換頁按鈕
                     PageNumber++;
-                    
+
                 }
-                var page = parseInt(key / 10);
+                var page = parseInt(key / 5);
                 newdata[page].push(item);
             });
-             console.log(newdata[1]);
-            PageNumberButton+='<li class="page-item"><a class="page-link" >Next</a></li>';
-            getData();
-            $("#PageNumberButton").html(PageNumberButton);
+          
+            PageNumberButton += '<li class="page-item"><a class="pagebutton page-link" >Next</a></li>';//下頁按鈕
+            
+            $("#PageNumberButton").html(PageNumberButton);//生成以排序好的換頁按鈕
+            $(".pagebutton").on("click", pagebuttonOn);//生成監聽器
+            $(".pagebutton").eq(1).trigger("click");
+            showData();
+            
         }
 
-        console.log(newdata[1]);
-        function getData(temp) {
-            console.log(temp);
-            i=temp;
-            newdata[temp].forEach(function(item, key){
-                html+='<li class="list-group-item shadow shadow-lg mt-3">' +
+        function pagebuttonOn() {
+            var x=1;
+            //parseInt($("#page").val()) == 1 ? (x = parseInt($("#page").val())) :(x = parseInt($("#page").val())-1);
+            if ($(this).html() == "Previous") {
+
+                //$(".pagebutton").removeClass('active');
+                //$(this).addClass('active');
+                x = parseInt($("#page").val());
+                parseInt($("#page").val()) == 1 ? x : x = x - 1;
+
+            } else if ($(this).html() == "Next") {
+                //$(".pagebutton").removeClass('active');
+                //$(this).addClass('active');
+                x = parseInt($("#page").val());
+                parseInt($("#page").val()) == (PageNumber - 1) ? x : x++;
+            } else {
+                //$(".pagebutton").removeClass('active');
+                //$(this).addClass('active');
+                x = parseInt($(this).html());
+            }
+            $(".pagebutton").removeClass('active'); // 移除所有按鈕的 active 類
+            $(".pagebutton").filter(function () {
+                return $(this).html() == x;
+            }).addClass('active');
+
+            // $(".pagebutton").each(function(){
+            //     if($(this).html() == x){
+            //         $(this).addClass('active');
+            //     }
+            // });  
+
+            console.log(x);
+            $("#page").val(x);
+            showData();
+        }
+
+
+        function showData() {
+            console.log("getData");
+
+            var i = $("#page").val();
+            console.log("i:" + i);
+            console.log(newdata[i]);
+            HotelHtml = "";
+            newdata[i].forEach(function (item, key) {
+                HotelHtml += '<li class="list-group-item shadow shadow-lg mt-3">' +
                     '<h3>' + item.name + '</h3>' +
-                    '<span class="badge bg-danger rounded-pill">'+(key+1)+'</span>'+
+                    '<span class="badge bg-danger rounded-pill">' + (key + 1) + '</span>' +
                     '<h5>住址:' + item.display_addr + '</h5>' +
                     '<h5>電話:' + item.tel + '</h5>' +
                     '<button class="btn btn-success w-100">map</button>' +
                     '</li>';
             })
-            $("#hotel").html(html);
+            $("#hotel").html(HotelHtml);
         }
 
 
