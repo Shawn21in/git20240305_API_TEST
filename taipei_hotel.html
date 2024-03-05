@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+
+<body>
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php",
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                    alert("error-https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php");
+                }
+            });
+        });
+        var html = "";
+        var i = 0;
+        function showdata(data) {
+            console.log(data);
+            console.log(data[0].name);
+            while(i<data.length)
+            {
+                //console.log(html);
+                html += "<div class=\"row \">"+
+                    "<h1>"+
+                    i+":"+
+                    data[i].name+
+                    "<h1 />"+
+                    "<p>連絡電話:"+
+                    data[i].tel+
+                    "<p />"+
+                    "<div />";
+                i++;
+            }
+            $("#name").html(html);
+        }
+        
+
+        
+    </script>
+    <div class="container" id="name">
+
+    </div>
+
+
+
+</body>
+
+</html>
