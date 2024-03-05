@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 pt-5">
+                <ul id="hotel" class="list-group list-group-flush">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <nav aria-label="Page navigation example">
+            <ul id="PageNumberButton" class="pagination">
+            </ul>
+        </nav>
+    </div>
+
+
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php",
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                    alert("error-https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php");
+                }
+            });
+        });
+
+
+        var PageNumber = 1;
+        var PageNumberButton = "";
+        var html = "";
+        var newdata = [];
+        var i=1;
+
+        function showdata(data) {
+            
+            PageNumberButton += '<li class="page-item"><a class="page-link" href="#">Previous</a></li>';
+            data.forEach(function (item, key) {
+                if (key % 10 == 0) {
+                    newdata.push([]);
+                    console.log(key);
+                    PageNumberButton += '<li class="page-item"><a class="page-link" onclick=getData("'+PageNumber+'")>'+PageNumber+'</a></li>\n';
+                    PageNumber++;
+                    
+                }
+                var page = parseInt(key / 10);
+                newdata[page].push(item);
+            });
+             console.log(newdata[1]);
+            PageNumberButton+='<li class="page-item"><a class="page-link" >Next</a></li>';
+            getData();
+            $("#PageNumberButton").html(PageNumberButton);
+        }
+
+        console.log(newdata[1]);
+        function getData(temp) {
+            console.log(temp);
+            i=temp;
+            newdata[temp].forEach(function(item, key){
+                html+='<li class="list-group-item shadow shadow-lg mt-3">' +
+                    '<h3>' + item.name + '</h3>' +
+                    '<span class="badge bg-danger rounded-pill">'+(key+1)+'</span>'+
+                    '<h5>住址:' + item.display_addr + '</h5>' +
+                    '<h5>電話:' + item.tel + '</h5>' +
+                    '<button class="btn btn-success w-100">map</button>' +
+                    '</li>';
+            })
+            $("#hotel").html(html);
+        }
+
+
+    </script>
+</body>
+
+</html>
