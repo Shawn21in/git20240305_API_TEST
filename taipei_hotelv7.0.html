@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taipei hotel data V7.0</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-md-3 bg-secondary">
+                <ul id="leftlist" class="list-group pt-4">
+                    <li class="list-group-item areabutton">
+                        <div class="h4 fw-bolder d-flex">
+                            台北市萬華區
+                            <span class="badge text-bg-danger ms-auto">10</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="h4 fw-bolder d-flex">
+                            台北市萬華區
+                            <span class="badge text-bg-danger ms-auto">10</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9 bg-warning">
+                <div id="hotel" class="row justify-content-center">
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card mt-4">
+                            <div class="card-body shadow">
+                                <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
+                                <div class="h1">地址:</div>
+                                <div class="h1">電話:</div>
+                                <button class="btn btn-outline-danger w-100">導航</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card mt-4">
+                            <div class="card-body shadow">
+                                <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
+                                <div class="h1">地址:</div>
+                                <div class="h1">電話:</div>
+                                <button class="btn btn-outline-danger w-100">導航</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row justify-content-center">
+            <input type="text" id="page" value="1" >
+            <select class="form-select shadow-lg" name="" id="numberOfPage">
+                <option selected disabled>選擇每一頁要幾筆</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+        </div>
+        <div id="hotel" class="row justify-content-center">
+            <div class="col-md-4 col-lg-3">
+                <div class="card mt-4">
+                    <div class="card-body shadow">
+                        <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
+                        <div class="h1">地址:</div>
+                        <div class="h1">電話:</div>
+                        <button class="btn btn-outline-danger w-100">導航</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="card mt-4">
+                    <div class="card-body shadow">
+                        <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
+                        <div class="h1">地址:</div>
+                        <div class="h1">電話:</div>
+                        <button class="btn btn-outline-danger w-100">導航</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <nav aria-label="Page navigation example">
+                <ul id="PageNumberButton" class="pagination justify-content-center">
+                </ul>
+            </nav>
+        </div> -->
+    </div>
+    </div>
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        var dataNoArrange = [];
+        var regionTitle = [];
+        var counter = [];
+        var regionData = [];
+        var numrOfPage = 12;
+        var lefthtml="";
+        var PageNumberButton = "";
+
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    dataNoArrange = data;
+                    setData();
+                },
+                error: function () {
+                    alert("error-https://shawn21in.000webhostapp.com/20240305/taipei_hotel_api.php");
+                }
+            });
+            $("#leftlist .areabutton").on("click", showData);//生成監聽器
+            //$(".pagebutton").eq(1).trigger("click");
+            // $("#numberOfPage").on("change", setpage);
+        })
+
+        // function setpage() {
+        //     numrOfPage = $("#numberOfPage").val();
+        //     console.log(numrOfPage);
+        //     setData();
+            
+       
+        // }
+
+        function setData() {
+            // dataArrange.length = 0;
+            dataNoArrange.forEach(function (item, key) {
+                // console.log(item.display_addr);
+                // console.log(item.display_addr.indexOf('市'));
+                //console.log(item.display_addr.substring(0,item.display_addr.indexOf('市')+1));
+                // console.log(item.display_addr.indexOf('區'));
+                //console.log(item.display_addr.substring(item.display_addr.indexOf('市')+1,item.display_addr.indexOf('區')+1));
+                var getRegion = item.display_addr.substring(0,item.display_addr.indexOf('區')+1);
+                if(getRegion==""){
+                    getRegion="未分類";
+                }
+
+                if(counter[getRegion] == undefined){
+                    counter[getRegion] = regionData.length;
+                    regionData.push(new Array());
+                    regionTitle[counter[getRegion]] = getRegion;
+                }
+                regionData[counter[getRegion]].push(item);
+            });
+            console.log(regionTitle);
+            console.log(counter);
+            console.log(regionData);
+            $("#leftlist").empty();
+            regionTitle.forEach(function(item, key){
+                lefthtml = '<li class="list-group-item areabutton" data-counter='+key+'>'+
+                    '<div class="h4 fw-bolder d-flex" >'+
+                        item+
+                        '<span class="badge text-bg-danger ms-auto">'+regionData[counter[item]].length +'</span>'+
+                        '</div>'+
+                        '</li>';
+                        $("#leftlist").append(lefthtml);
+            });
+        }
+
+        function showData() {
+            console.log("yes");
+             var i = $(this).data('counter');
+             console.log(i);
+            HotelHtml = "";
+            regionData[i].forEach(function (item, key) {
+                HotelHtml += '<div class="col-md-4 col-lg-3">' +
+                    '<div class="card mt-4 h-100">' +
+                    '<div class="card-body shadow shadow-lg d-flex flex-column">' +
+                    '<div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">' + item.name + '</div>' +
+                    '<div class="h1">地址:' + item.display_addr + '</div>' +
+                    '<div class="h1">電話:' + item.tel + '</div>' +
+                    '<button class="btn btn-outline-danger w-100 mt-auto">導航</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+            })
+            $("#hotel").html(HotelHtml);
+        }
+
+        // function pagebuttonOn(event) {
+        //     console.log(x);
+        //     event.preventDefault();
+        //     var x = 1;
+        //     if ($(this).html() == "Previous") {
+        //         x = parseInt($("#page").val());
+               
+        //         parseInt($("#page").val()) == 1 ? x : x = x - 1;
+
+        //     } else if ($(this).html() == "Next") {
+        //         x = parseInt($("#page").val());
+                
+        //         parseInt($("#page").val()) == dataArrange.length ? x : x++;
+        //     } else {
+        //         x = parseInt($(this).html());
+        //         console.log(x)
+                
+        //     }
+
+        //     $(".pagebutton").removeClass('active'); // 移除所有按鈕的 active 
+        //     $(".pagebutton").filter(function () {
+        //         return $(this).html() == x;
+        //     }).addClass('active');
+
+            
+        //     $("#page").val(x);
+        //     showData();
+        // }
+    </script>
+</body>
+
+</html>

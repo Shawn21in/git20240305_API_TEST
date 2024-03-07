@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Taipei hotel data V3.0</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 </head>
 
@@ -14,18 +14,19 @@
 
 
     <div class="container">
-        <div class="row">
-            <nav aria-label="Page navigation example">
-                <ul id="PageNumberButton" class="pagination">
-                </ul>
-            </nav>
-        </div>
+        
         <div class="row justify-content-center">
             <div class="col-md-8 pt-5">
                 <ul id="hotel" class="list-group list-group-flush">
 
                 </ul>
             </div>
+        </div>
+        <div class="row justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul id="PageNumberButton" class="d-flex pagination">
+                </ul>
+            </nav>
         </div>
     </div>
 
@@ -55,14 +56,14 @@
 
             PageNumberButton += '<li class="page-item"><a class="pagebutton page-link" href="#">Previous</a></li>';//上頁按鈕
             data.forEach(function (item, key) {
-                if (key % 5 == 0) {
+                if (key % 10 == 0) {
                     newdata.push([]);
                    
-                    PageNumberButton += '<li class="page-item"><a class="pagebutton page-link">' + PageNumber + '</a></li>\n';//逐筆新增數字換頁按鈕
+                    PageNumberButton += '<li class="page-item"><a class="pagebutton page-link" href="#">' + PageNumber + '</a></li>\n';//逐筆新增數字換頁按鈕
                     PageNumber++;
 
                 }
-                var page = parseInt(key / 5);
+                var page = parseInt(key / 10);
                 newdata[page].push(item);
             });
           
@@ -100,11 +101,19 @@
                 return $(this).html() == x;
             }).addClass('active');
 
+            // $(".pagebutton").filter(function () {
+            //     if($(this).html() == x){
+            //         $(this).addClass('active');
+            //     }
+            // })
             // $(".pagebutton").each(function(){
             //     if($(this).html() == x){
             //         $(this).addClass('active');
             //     }
-            // });  
+            // });
+            // $(".pagebutton").each(function(){//<--這個會壞掉
+            //     return $(this).html() == x;
+            // }).addClass('active');    
 
             console.log(x);
             $("#page").val(x);
@@ -115,7 +124,7 @@
         function showData() {
             console.log("getData");
 
-            var i = $("#page").val();
+            var i = ($("#page").val())-1;
             console.log("i:" + i);
             console.log(newdata[i]);
             HotelHtml = "";
