@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taipei hotel data V7.0</title>
+    <title>Opendata data(觀光屬數量統計) V1.0</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 </head>
 
@@ -12,14 +12,36 @@
     <div class="container-fluid">
         <div class="row vh-100">
             <div class="col-md-3 bg-secondary">
+                <select class="form-select mt-3 form-select-lg shadow-lg" name="" id="SelectOfArea">
+                    <!-- <option selected disabled>請選擇縣市</option>
+                    <option value="">請先選擇縣市</option>
+                    <option value="臺北市">臺北市</option>
+                    <option value="基隆市">基隆市</option>
+                    <option value="新北市">新北市</option>
+                    <option value="連江縣">連江縣</option>
+                    <option value="宜蘭縣">宜蘭縣</option>
+                    <option value="釣魚臺">釣魚臺</option>
+                    <option value="新竹市">新竹市</option>
+                    <option value="新竹縣">新竹縣</option>
+                    <option value="桃園市">桃園市</option>
+                    <option value="苗栗縣">苗栗縣</option>
+                    <option value="臺中市">臺中市</option>
+                    <option value="彰化縣">彰化縣</option>
+                    <option value="南投縣">南投縣</option>
+                    <option value="嘉義市">嘉義市</option>
+                    <option value="嘉義縣">嘉義縣</option>
+                    <option value="雲林縣">雲林縣</option>
+                    <option value="臺南市">臺南市</option>
+                    <option value="高雄市">高雄市</option>
+                    <option value="南海島">南海島</option>
+                    <option value="澎湖縣">澎湖縣</option>
+                    <option value="金門縣">金門縣</option>
+                    <option value="屏東縣">屏東縣</option>
+                    <option value="臺東縣">臺東縣</option>
+                    <option value="花蓮縣">花蓮縣</option> -->
+                </select>
                 <ul id="leftlist" class="list-group pt-4">
                     <li class="list-group-item areabutton">
-                        <div class="h4 fw-bolder d-flex">
-                            台北市萬華區
-                            <span class="badge text-bg-danger ms-auto">10</span>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
                         <div class="h4 fw-bolder d-flex">
                             台北市萬華區
                             <span class="badge text-bg-danger ms-auto">10</span>
@@ -28,23 +50,25 @@
                 </ul>
             </div>
             <div class="col-md-9 bg-warning">
-                <div id="hotel" class="row justify-content-center">
-                    <div class="col-md-4 col-lg-3">
-                        <div class="card mt-4">
+                <div id="hotel" class="row justify-content-left">
+                    <div class="col-md-4 col-lg-3 col-xxl-2 mt-3">
+                        <div class="card">
+                            <img class="card-img-top" src="https://taiwan.taiwanstay.net.tw/twpic/15545.jpg" alt="">
                             <div class="card-body shadow">
-                                <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
-                                <div class="h1">地址:</div>
-                                <div class="h1">電話:</div>
+                                <div class="card-title fw-bolder">飯店名稱</div>
+                                <div class="h6 fw-bolder">地址:</div>
+                                <div class="h6 fw-bolder">電話:</div>
                                 <button class="btn btn-outline-danger w-100">導航</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-3">
-                        <div class="card mt-4">
+                    <div class="col-md-4 col-lg-3 col-xxl-2 mt-3">
+                        <div class="card">
+                            <img class="card-img-top" src="https://taiwan.taiwanstay.net.tw/twpic/15545.jpg" alt="">
                             <div class="card-body shadow">
-                                <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
-                                <div class="h1">地址:</div>
-                                <div class="h1">電話:</div>
+                                <div class="card-title fw-bolder">飯店名稱</div>
+                                <div class="h6 fw-bolder">地址:</div>
+                                <div class="h6 fw-bolder">電話:</div>
                                 <button class="btn btn-outline-danger w-100">導航</button>
                             </div>
                         </div>
@@ -52,60 +76,62 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row justify-content-center">
-            <input type="text" id="page" value="1" >
-            <select class="form-select shadow-lg" name="" id="numberOfPage">
-                <option selected disabled>選擇每一頁要幾筆</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-            </select>
-        </div>
-        <div id="hotel" class="row justify-content-center">
-            <div class="col-md-4 col-lg-3">
-                <div class="card mt-4">
-                    <div class="card-body shadow">
-                        <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
-                        <div class="h1">地址:</div>
-                        <div class="h1">電話:</div>
-                        <button class="btn btn-outline-danger w-100">導航</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-3">
-                <div class="card mt-4">
-                    <div class="card-body shadow">
-                        <div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">飯店名稱</div>
-                        <div class="h1">地址:</div>
-                        <div class="h1">電話:</div>
-                        <button class="btn btn-outline-danger w-100">導航</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <nav aria-label="Page navigation example">
-                <ul id="PageNumberButton" class="pagination justify-content-center">
-                </ul>
-            </nav>
-        </div> -->
     </div>
     </div>
 
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var dataNoArrange = [];
-        var dataNoArrange1 = [];
+        const ctx = document.getElementById('myChart');
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
         var regionTitle = [];
         var counter = [];
         var regionData = [];
-        var numrOfPage = 12;
-        var lefthtml="";
-        var PageNumberButton = "";
 
+        var dataNoArrange = [];//ajax存放區域
+        var dataNoArrange1 = [];//json讀取出來的存放區域
+        //var numrOfPage = 12;
+        var lefthtml = "";
+        var PageNumberButton = "";
+        var selectCity = "";
+        var cityCountry = ""; //儲存縣市列表select用
         $(function () {
+            $.ajax({
+                type: "GET",
+                url: "./js/CityCountyData.json",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    cityCountry = data;
+                    $("#SelectOfArea").empty();
+                    $("#SelectOfArea").append('<option selected disabled>請選擇縣市</option>');
+                    console.log(cityCountry);
+                    cityCountry.forEach(function (item) {
+                        var temp = '<option value="' + item.CityName + '">' + item.CityName + '</option>';
+                        $("#SelectOfArea").append(temp);
+                    })
+                }
+            });
             $.ajax({
                 type: "GET",
                 url: "./js/hotel_C_f.json",
@@ -113,7 +139,7 @@
                 async: false,
                 success: function (data) {
                     dataNoArrange = data;
-                    setData();
+                    setData("臺北市");
                 },
                 error: function () {
                     alert("./js/hotel_C_f.json");
@@ -121,105 +147,94 @@
             });
             $("#leftlist .areabutton").on("click", showData);//生成監聽器
             //$(".pagebutton").eq(1).trigger("click");
-            // $("#numberOfPage").on("change", setpage);
+            $("#SelectOfArea").on("change", SelectOfArea);
         })
 
-        // function setpage() {
-        //     numrOfPage = $("#numberOfPage").val();
-        //     console.log(numrOfPage);
-        //     setData();
-            
-       
-        // }
+        function SelectOfArea() {
+            SelectOfArea = $("#SelectOfArea").val();
+            //console.log(SelectOfArea);
+            var selectCity = SelectOfArea;
+            //console.log(selectCity);
+            setData(selectCity);
 
-        function setData() {
-            // dataArrange.length = 0;
-            console.log(dataNoArrange.XML_Head.Infos.Info[0].Region);
-            dataNoArrange1 = dataNoArrange.XML_Head.Infos.Info;
-            console.log(dataNoArrange1);
-            dataNoArrange1.forEach(function (item, key) {
-                // console.log(item.display_addr);
-                // console.log(item.display_addr.indexOf('市'));
-                //console.log(item.display_addr.substring(0,item.display_addr.indexOf('市')+1));
-                // console.log(item.display_addr.indexOf('區'));
-                //console.log(item.display_addr.substring(item.display_addr.indexOf('市')+1,item.display_addr.indexOf('區')+1));
-                //var getRegion = item.display_addr.substring(0,item.display_addr.indexOf('區')+1);
-                var getRegion = item.Region;
-                //console.log(getRegion);
-                if(getRegion==""){
-                    getRegion="未分類";
-                }
-
-                if(counter[getRegion] == undefined){
-                    counter[getRegion] = regionData.length;
-                    regionData.push(new Array());
-                    regionTitle[counter[getRegion]] = getRegion;
-                }
-                regionData[counter[getRegion]].push(item);
-            });
-            console.log(regionTitle);
-            console.log(counter);
-            console.log(regionData);
-            $("#leftlist").empty();
-            regionTitle.forEach(function(item, key){
-                lefthtml = '<li class="list-group-item areabutton" data-counter='+key+'>'+
-                    '<div class="h4 fw-bolder d-flex" >'+
-                        item+
-                        '<span class="badge text-bg-danger ms-auto">'+regionData[counter[item]].length +'</span>'+
-                        '</div>'+
-                        '</li>';
-                        $("#leftlist").append(lefthtml);
-            });
         }
 
-        // function showData() {
-        //     console.log("yes");
-        //      var i = $(this).data('counter');
-        //      console.log(i);
-        //     HotelHtml = "";
-        //     regionData[i].forEach(function (item, key) {
-        //         HotelHtml += '<div class="col-md-4 col-lg-3">' +
-        //             '<div class="card mt-4 h-100">' +
-        //             '<div class="card-body shadow shadow-lg d-flex flex-column">' +
-        //             '<div class="h2 text-bg-success text-center fw-bolder py-2 rounded rounded-3">' + item.name + '</div>' +
-        //             '<div class="h1">地址:' + item.display_addr + '</div>' +
-        //             '<div class="h1">電話:' + item.tel + '</div>' +
-        //             '<button class="btn btn-outline-danger w-100 mt-auto">導航</button>' +
-        //             '</div>' +
-        //             '</div>' +
-        //             '</div>';
-        //     })
-        //     $("#hotel").html(HotelHtml);
-        //}
+        function setData(selectCity) {
+            console.log(selectCity);
+            dataNoArrange1 = dataNoArrange.XML_Head.Infos.Info;
+            regionTitle = [];
+            counter = [];
+            regionData = [];
+            dataNoArrange1.forEach(function (item, key) {
 
-        // function pagebuttonOn(event) {
-        //     console.log(x);
-        //     event.preventDefault();
-        //     var x = 1;
-        //     if ($(this).html() == "Previous") {
-        //         x = parseInt($("#page").val());
-               
-        //         parseInt($("#page").val()) == 1 ? x : x = x - 1;
 
-        //     } else if ($(this).html() == "Next") {
-        //         x = parseInt($("#page").val());
-                
-        //         parseInt($("#page").val()) == dataArrange.length ? x : x++;
-        //     } else {
-        //         x = parseInt($(this).html());
-        //         console.log(x)
-                
-        //     }
+                if (item.Region == selectCity) {
+                    var getTown = item.Town;
+                    //console.log(getTown);
+                    if (getTown == "") {
+                        getTown = "未分類";
+                    }
+                    if (counter[getTown] == undefined) {
+                        counter[getTown] = regionData.length;
+                        regionData.push(new Array());
+                        regionTitle[counter[getTown]] = getTown;
+                    }
+                    regionData[counter[getTown]].push(item);
+                }
+            });
 
-        //     $(".pagebutton").removeClass('active'); // 移除所有按鈕的 active 
-        //     $(".pagebutton").filter(function () {
-        //         return $(this).html() == x;
-        //     }).addClass('active');
+            //更新chartjs
+            chart.data.labels = [];
+            chart.data.datasets[0].data = [];
+            console.log(regionTitle);
+            regionTitle.forEach(function(item, key){
+                console.log(key);
+                console.log(item);
+             //    chart.data.labels.push(item);
+            //     chart.data.datasets[0].data.push(regionData[key].length);
+            //     chart.update();
+             });
+
+
+            $("#leftlist").empty();
+            regionTitle.forEach(function (item, key) {
+                lefthtml = '<li class="list-group-item areabutton" data-counter=' + key + '>' +
+                    '<div class="h4 fw-bolder d-flex" >' +
+                    item +
+                    '<span class="badge text-bg-danger ms-auto">' + regionData[counter[item]].length + '</span>' +
+                    '</div>' +
+                    '</li>';
+                $("#leftlist").append(lefthtml);
+            });
+            $("#leftlist .areabutton").on("click", showData);//生成監聽器
 
             
-        //     $("#page").val(x);
-        //     showData();
-        // }
+        }
+
+        function showData() {
+            //console.log("yes");
+            var i = $(this).data('counter');
+            console.log(i);
+            HotelHtml = "";
+            regionData[i].forEach(function (item, key) {
+                if (item.Picture1 == "") {
+                    item.Picture1 = "https://taiwan.taiwanstay.net.tw/twpic/15545.jpg";
+                }
+
+                HotelHtml += '<div class="col-md-4 col-lg-3 col-xxl-2 mt-3">' +
+                    '<div class="card h-100">' +
+                    '<img class="card-img-top" src="' + item.Picture1 + '" alt="">' +
+                    ' <div class="card-body shadow d-flex flex-column">' +
+                    '<div class="card-title fw-bolder">' + item.Name + '</div>' +
+                    '<div class="h6 fw-bolder">地址:' + item.Add + '</div>' +
+                    '<div class="h6 fw-bolder">電話:' + item.Tel + '</div>' +
+                    '<button class="btn btn-outline-danger w-100 mt-auto">導航</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+            })
+            $("#hotel").html(HotelHtml);
+        }
     </script>
 </body>
 
